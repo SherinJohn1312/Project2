@@ -1,0 +1,27 @@
+<!--
+  Step 1: This is your descretion how you would like to display data,
+  but you must list display only one document based on the passed ID.
+-->
+<%- include ('../partials/header') %>
+<header>
+  <h1>
+    <%= reservation.title %>
+    <a href="/resources/<%= reservation.id %>/edit">
+      <i class=" fa fa-edit"></i>
+    </a> 
+  </h1>
+  <br>
+  <small>
+    <%= (reservation.updatedAt.toLocaleString("en-CA"))%>
+  </small>
+  <p><strong>By: <%= reservation.user.fullname%></strong></p>
+</header>
+<hr>
+<div class="content">
+  <%- reservation.content  %> 
+</div>
+<div class="status">
+  <%= reservation.status %> 
+</div>
+
+<%- include ('../partials/footer') %>

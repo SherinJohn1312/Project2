@@ -1,0 +1,50 @@
+<!--
+  Step 1: This is your descretion how you would like to display data,
+  but you must list all the documents in your resource collection.
+-->
+<%- include ('../partials/header') %>
+
+<div class="container my-5">
+  <header>
+    <h1>
+      Archive
+    </h1>
+  </header>
+  <hr>
+
+  <div class= "content">
+    <% for (let reservation of reservations) { %> 
+      <div class="card my-3">
+        <div class="card-header clearfix">
+          <div class="float-left">
+            <h5 class="card-title"><%= reservation.title %> </h5>
+          <% if (typeof reservation.user !== 'undefined') { %>
+            <small> <%= reservation.user.fullname  %> </small> 
+          <% } %> 
+          </div>
+          <divc class="float-right">
+            <small><%= reservation.updatedAt %> </small>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= reservation.synopsis %> </p>
+        <a href="/resources/<%= reservation.id %>"> More...</a>
+        </div>
+      <% if (authorized && (typeof reservation.user === 'undefined' || reservation.user.email === email))  { %> 
+        <div class="card-footer"><a href="/resources/<%= reservation.id %>/edit "><i class="fa fa-edit"></i></a>
+        &nbsp; &nbsp;
+        <form class="form-inline" action="/resources/delete" method="POST"
+        onsubmit="return confirm('Are you sure you want to delete this reservation?');">
+      <input type="hidden" value="<%= reservation.id %>" name="id">
+      <button class="delete" type="submit">
+        <i class="fa fa-trash"></i>
+      </button>
+      </form>
+        </div>
+      <% } %> 
+      </div>
+      <% } %>
+  </div>
+</div>
+
+<%- include ('../partials/footer') %>
